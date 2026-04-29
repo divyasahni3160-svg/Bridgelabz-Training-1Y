@@ -43,5 +43,26 @@ class RouteLinkedList<T extends Checkpoint> {
                     i++, cp.getType(), cp.locationName, cp.isDelayed() ? "Delayed" : "On Time", cp.calculatePenalty());
         }
     }
+    public void saveToDatabase(String dName, String dId, double dist, double score) {
+        String url = "jdbc:mysql://localhost:3306/workshop_db";
+        String user = "root";
+        String password = "21678855";
+
+        String sql = "INSERT INTO route_results (driver_name, driver_id, total_distance, route_score) VALUES (?, ?, ?, ?)";
+
+        try (java.sql.Connection conn = java.sql.DriverManager.getConnection(url, user, password);
+             java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, dName);
+            pstmt.setString(2, dId);
+            pstmt.setDouble(3, dist);
+            pstmt.setDouble(4, score);
+
+            pstmt.executeUpdate();
+            System.out.println("Successfully exported to MySQL Workbench!");
+        } catch (java.sql.SQLException e) {
+            System.out.println("Database Error: " + e.getMessage());
+        }
+    }
 }
 

@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 class RouteDAO {
     private final String url = "jdbc:mysql://localhost:3306/logistics_db";
-    private final String user = "root"; // Update with your MySQL username
-    private final String pass = "password"; // Update with your MySQL password
+    private final String user = "root";
+    private final String pass = "password";
 
     public void saveCheckpoint(String driverId, Checkpoint cp) {
         String sql = "INSERT INTO Checkpoints (checkpoint_id, driver_id, location_name, checkpoint_type, " +
